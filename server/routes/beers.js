@@ -2,20 +2,28 @@ var
   beerRouter = require('express').Router(),
   Beer = require('../models/Beer.js')
 
-beerRouter.route('/beers')
+beerRouter.route('/')
   .get(function(req, res) {
-    User.find({}).exec(function(err, beers) {
+    Beer.find({}).exec(function(err, beers) {
       if(err) return console.log(err)
       res.json(beers)
     })
   })
 
-beerRouter.route('/beers/:id')
+  .post(function(req, res){
+    Beer.create({name: req.body.name}, function(err, beer){
+      res.json(beer)
+    })
+  })
+
+beerRouter.route('/:id')
   .get(function(req, res) {
-    User.findById(req.params.id).exec(function(err, beer) {
+    Beer.findById(req.params.id).exec(function(err, beer) {
       if(err) return console.log(err)
       res.json(beer)
     })
   })
+
+
 
 module.exports = beerRouter

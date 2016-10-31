@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var passport = require('passport')
 var User = require('../models/User.js')
+var Beer = require('../models/Beer.js')
 
 router.post('/register', function(req, res) {
   User.register(new User({ username: req.body.username }),

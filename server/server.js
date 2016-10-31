@@ -56,9 +56,9 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routes
-app.use('/user/', routes)
+app.use('/users', routes)
 app.use('/api', userRoutes)
-app.use('/beer/', beerRoutes)
+app.use('/beers', beerRoutes)
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'))
