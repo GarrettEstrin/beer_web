@@ -14,7 +14,7 @@
     }
   </style>
 </head>
-<body>
+<body ng-controller="mainController as main">
   <!-- start of navigation -->
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -42,13 +42,13 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
+        <li><a ng-click='main.logout()'>Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-  <div class="container" ng-controller="mainController as main">
+  <div class="container">
     <div ui-view></div>
   </div>
 

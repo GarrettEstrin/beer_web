@@ -23,6 +23,15 @@ function mainController($rootScope, $state, AuthService) {
       })
   })
 
+  vm.logout = function () {
+
+    // call logout from service
+    AuthService.logout()
+      .then(function () {
+        $state.go('login')
+      })
+  }
+
   console.log($rootScope)
 }
 
@@ -101,20 +110,12 @@ function SingleUserController($http, AuthService, $rootScope) {
   AuthService.getUserStatus()
     .then(function(data){
       vm.currentUser = data.data.user
-      $http.get('/api/users/' + vm.currentUser._id)
+      $http.get('/api/' + vm.currentUser._id)
         .success(function(data) {
           console.log(data)
           vm.currentUser = data
         })
     })
-
-  vm.addKitty = function() {
-    $http.post('/api/kitties', vm.newKitty)
-      .success(function(data) {
-        console.log(data)
-        vm.currentUser.kitties.push(data.kitty)
-      })
-  }
 
 
 }

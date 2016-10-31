@@ -31,6 +31,7 @@ mongoose.connect(mongoConnectionString, function(err) {
 
 // user schema/model
 var User = require('./models/User.js')
+var Beer = require('./models/Beer.js')
 
 // create instance of express
 var app = express()
