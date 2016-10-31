@@ -56,7 +56,7 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routes
-app.use('/users', routes)
+app.use('/user', routes)
 app.use('/api', userRoutes)
 app.use('/beers', beerRoutes)
 
