@@ -18,4 +18,18 @@ userRouter.route('/:id')
     })
   })
 
+  .delete(function(req, res){
+    User.remove({_id: req.params.id}, function(err, user){
+      if(err) return console.log(err)
+      res.json(user)
+    })
+  })
+
+  .patch(function(req, res){
+    User.update({_id: req.params.id}, {$set: req.body}, function(err, user){
+      if(err) return console.log(err)
+      res.json(user)
+    })
+  })
+
 module.exports = userRouter
