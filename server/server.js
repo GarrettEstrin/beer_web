@@ -1,22 +1,32 @@
-#!/usr/bin/env node
-var port = process.env.PORT || 3000
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// This setup is ready for user authorization(registration and login with session)
+// Uses: express, morgan, cookieParser, bodyParser, bcrypt-nodejs, passport, dotenv
 
-// dependencies
-var express = require('express')
-var logger = require('morgan')
-var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var expressSession = require('express-session')
-var mongoose = require('mongoose')
-var hash = require('bcrypt-nodejs')
-var path = require('path')
-var passport = require('passport')
-var passportConfig = require('./config/passport.js')
+
+
+const
+  // #!/usr/bin/env node
+  PORT = process.env.PORT || 3000
+
+  // dependencies
+  express = require('express')
+  logger = require('morgan')
+  cookieParser = require('cookie-parser')
+  bodyParser = require('body-parser')
+  expressSession = require('express-session')
+  mongoose = require('mongoose')
+  hash = require('bcrypt-nodejs')
+  path = require('path')
+  passport = require('passport')
+  passportConfig = require('./config/passport.js'),
+  dotenv = require('dotenv').load({silent: true})
 
 // mongoose
-mongoose.connect('mongodb://localhost/mean-auth', function(err) {
+var mongoConnectionString = process.env.MONGO_URL
+
+mongoose.connect(mongoConnectionString, function(err) {
   if(err) return console.log(err)
-  console.log("Connected to MongoDB (mean-auth)")
+  console.log("Connected to MongoDB")
 })
 
 // user schema/model
@@ -28,7 +38,6 @@ var app = express()
 // require routes
 var routes = require('./routes/api.js')
 var userRoutes = require('./routes/users.js')
-var kittyRoutes = require('./routes/kitties.js')
 
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')))
@@ -37,7 +46,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(require('express-session')({
-    secret: 'keyboard cat',
+    secret: 'passwordis12345',
     resave: false,
     saveUninitialized: false
 }))
@@ -48,7 +57,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 // routes
 app.use('/user/', routes)
 app.use('/api', userRoutes)
-app.use('/api', kittyRoutes)
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'))
@@ -69,6 +77,6 @@ app.use(function(err, req, res) {
   }))
 })
 
-app.listen(port, function() {
-  console.log("Listening for requests on port:", port)
+app.listen(PORT, function() {
+  console.log("Listening for requests on port:", PORT)
 })
