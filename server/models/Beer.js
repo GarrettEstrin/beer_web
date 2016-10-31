@@ -6,7 +6,7 @@ var passportLocalMongoose = require('passport-local-mongoose')
 var Beer = new Schema({
   name: String,
   color: String,
-  alcoholcontent: String,
+  alcoholcontent: Number,
   bitter: Number,
   picture: String,
   Review: {
