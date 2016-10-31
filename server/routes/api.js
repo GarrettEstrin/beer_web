@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router()
 var passport = require('passport')
-
 var User = require('../models/User.js')
 
 router.post('/register', function(req, res) {

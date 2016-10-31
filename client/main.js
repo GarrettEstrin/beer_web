@@ -8,7 +8,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     .state('home', {
       url: '/',
       templateUrl: 'templates/home.html',
-      restricted: true
+      restricted: false
     })
     .state('login', {
       url: '/login',
@@ -24,9 +24,9 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/register.html',
       controller: 'registerController as registerCtrl'
     })
-    .state('one', {
-      url: '/one',
-      template: '<h1>This is page one!</h1>'
+    .state('beerlogger', {
+      url: '/logbeer',
+      templateUrl: 'templates/beerlogger.html'
     })
     .state('two', {
       url: '/two',

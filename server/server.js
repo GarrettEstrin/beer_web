@@ -38,6 +38,7 @@ var app = express()
 // require routes
 var routes = require('./routes/api.js')
 var userRoutes = require('./routes/users.js')
+var beerRoutes = require('./routes/beers.js')
 
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')))
@@ -57,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // routes
 app.use('/user/', routes)
 app.use('/api', userRoutes)
+app.use('/beer/', beerRoutes)
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'))
