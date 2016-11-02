@@ -1,7 +1,28 @@
-<div class="col-sm-12 col-xl-6 offset-3 test-border">
-  <h1>This is the beerlogger page</h1>
-  <h2>What goes here:</h2>
-  <ul>
-    <li>Form for beers</li>
-  </ul>
+<div class="col-xl-12 text-center">
+  <h1><span>Log Beer</span></h1>
+  <form class="form">
+    <div class="form-group">
+      <label><h4>Beer Name</h4></label>
+      <input type="text" class="form-control" name="name" ng-model="lbc.beer.name" required>
+    </div>
+    <div class="form-group">
+      <label><h4>Color</h4></label>
+      <input type="text" class="form-control" name="color" ng-model="lbc.beer.color">
+    </div>
+    <div class="form-group">
+      <label><h4>Alcohol Content</h4></label>
+        <input type="number" class="form-control" name="alcoholcontent" ng-model="lbc.beer.alcoholcontent">
+      </div>
+      <div class="form-group">
+        <label><h4>IBU(Bitterness Rating)</h4></label>
+          <input type="number" class="form-control" name="ibu" ng-model="lbc.beer.bitter">
+      </div>
+      <div class="form-group">
+        <label><h4>Picture</h4></label>
+          <input type="test" class="form-control" name="ibu" ng-model="lbc.beer.picture">
+      </div>
+      <div>
+        <button type="submit" class="btn btn-danger btn-lg" ng-click="lbc.logBeer(lbc.beer)">Log Beer!</button>
+      </div>
+  </form>
 </div>

@@ -13,8 +13,9 @@ var Beer = new Schema({
     title: String,
     body: String
   },
+  // make this a reference to user model
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
-    // make this a reference to user model
+
 })
 
 Beer.plugin(passportLocalMongoose)

@@ -26,7 +26,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('beerlogger', {
       url: '/logbeer',
-      templateUrl: 'templates/beerlogger.html'
+      templateUrl: 'templates/beerlogger.html',
+      controller: 'LogBeerController as lbc'
     })
     .state('two', {
       url: '/two',

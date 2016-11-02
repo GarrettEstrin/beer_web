@@ -4,6 +4,7 @@ angular.module('myApp')
   .controller('logoutController', logoutController)
   .controller('registerController', registerController)
   .controller('SingleUserController', SingleUserController)
+  .controller('LogBeerController', LogBeerController)
 
 
   mainController.$inject = ['$rootScope', '$state', 'AuthService']
@@ -11,6 +12,7 @@ angular.module('myApp')
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
+    LogBeerController.$inject = ['$http', 'AuthService', '$rootScope']
 
 
 function mainController($rootScope, $state, AuthService) {
@@ -209,7 +211,44 @@ function SingleUserController($http, AuthService, $rootScope) {
   vm.addAvatarToProfile = function(){
     console.log(vm.avatarUrl);
     $http.patch('/api/' + vm.currentUser._id, {avatar: vm.avatarUrl})
-      .then(console.log("Avatar added to profile"))
+      .then(
+        vm.avatarUrl = ""
+        )
   }
 
+}
+
+function LogBeerController($http, AuthService, $rootScope){
+  console.log("LogBeerController instantiated");
+  AuthService.getUserStatus()
+    .then(function(data){
+      vm.currentUser = data.data.user
+      $http.get('/api/' + vm.currentUser._id)
+        .success(function(data) {
+          console.log(data)
+          vm.currentUser = data
+        })
+    })
+  vm = this
+  vm.logBeer = function(beer){
+    console.log("logBeer function was activated");
+    beer.review = {title: "", body: ""}
+    beer.user = vm.currentUser._id
+    console.log("Beer object:");
+    console.log(beer);
+    $http.post('/beers', {
+      name: beer.name,
+      color: beer.color,
+      alcoholcontent: beer.alcoholcontent,
+      bitter: beer.bitter,
+      picture: beer.picture,
+      user: beer.user,
+      review: {title: beer.review.title,
+              body: beer.review.body
+      }
+    })
+      .then(function(){
+        vm.avatarUrl = ""
+      })
+  }
 }
