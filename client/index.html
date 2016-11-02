@@ -34,19 +34,16 @@
       <ul class="nav navbar-nav">
         <li><a ui-sref="beerlogger">Start Drinking!</a></li>
       </ul>
-      <form class="navbar-form navbar-left">
+      <!-- <form class="navbar-form navbar-left">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-danger">Submit</button>
-      </form>
+      </form> -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a ng-click='main.logout()' style="display: inline-block">Logout</a>
-          <a ui-sref="profile">Profile</a>
+        <li><a ng-show="main.currentUser" ng-click='main.logout()' style="display: inline-block">Logout</a>
+          <a ng-show="main.currentUser" ui-sref="profile">Profile <img src="{{main.currentUser.avatar}}" style="height: 30px; width: 30px;"></a>
         </li>
-        <!-- <li ng-if="{{main.currentUser}}"><a ng-click='main.logout()' style="display: inline-block">Logout</a>
-          <a ui-sref="profile"><img id="nav-avatar" src="{{ main.currentUser.avatar }}" style="height: 60px; width: 60px;display: inline-block" /> {{ main.currentUser.name }}</a>
-        </li> -->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

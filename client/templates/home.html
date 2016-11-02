@@ -5,9 +5,9 @@
       <p class="lead"><h5 class="text-center">The Beer Journal</h5></p>
       <div class="col-xl-12 text-center">
         <br>
-          <a ui-sref="login"><button class="btn btn-danger btn-lg"> Log In </button></a>
-          <a ui-sref="register"><button class="btn btn-danger btn-lg">Register</button></a>
-          <button ng-click="main.$rootScope.isLoggedIn()">Test</button>
+          <a ng-hide="main.currentUser" ui-sref="login"><button class="btn btn-danger btn-lg"> Log In </button></a>
+          <a ng-hide="main.currentUser" ui-sref="register"><button class="btn btn-danger btn-lg">Register</button></a>
+          <button style="display: none;" ng-click="main.$rootScope.isLoggedIn()">Test</button>
         <br>
       </div>
     </div>
