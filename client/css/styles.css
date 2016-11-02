@@ -10,3 +10,7 @@
 span {
   color: #F04124;
 }
+
+.nav-hover {
+  cursor: pointer;
+}

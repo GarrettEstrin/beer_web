@@ -42,8 +42,9 @@
         <button type="submit" class="btn btn-danger">Submit</button>
       </form> -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a ng-show="main.currentUser" ng-click='main.logout()' style="display: inline-block">Logout</a></li>
-          <li><a ng-show="main.currentUser" ui-sref="profile">Profile <img src="{{main.currentUser.avatar}}" style="height: 25px; width: 30px;"></a></li>
+          <li ng-show="main.currentUser"><a ui-sref="profile"><img src="{{main.currentUser.avatar}}" style="height: 25px; width: 30px; margin-left: 5px;"></a></li>
+          <li><a ng-show="main.currentUser" ui-sref="profile">{{main.currentUser.name}}</a></li>
+          <li class="nav-hover"><a ng-show="main.currentUser" ng-click='main.logout()' style="display: inline-block">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
