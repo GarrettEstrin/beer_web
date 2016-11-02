@@ -29,10 +29,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/beerlogger.html',
       controller: 'LogBeerController as lbc'
     })
-    .state('two', {
-      url: '/two',
-      template: '<h1>This is page two!</h1>',
-      restricted: true
+    .state('individualBeer', {
+      url: '/beers',
+      template: 'templates/individualbeer.html',
+      restricted: false,
+      controller: 'IndividualBeerController as ibc'
     })
     .state('profile', {
       url: '/profile',

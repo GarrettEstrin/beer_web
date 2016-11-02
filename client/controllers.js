@@ -247,8 +247,16 @@ function LogBeerController($http, AuthService, $rootScope){
               body: beer.review.body
       }
     })
-      .then(function(){
-        vm.avatarUrl = ""
-      })
+      // .then(function(){
+      //   $http.patch('/api/' + vm.currentUser._id, function(req, res){
+      //     User.findById(vm.currentUser._id, function(err, user){
+      //       console.log(user);
+      //       user.beers.push(vm.beer._id)
+      //       user.save(function(err, user) {
+      //         res.json(user)
+      //       })
+      //     })
+      //   })
+      // })
   }
 }
