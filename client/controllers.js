@@ -128,7 +128,7 @@ function SingleUserController($http, AuthService, $rootScope) {
             if(xhr.status === 200){
               document.getElementById('preview').src = url;
               document.getElementById('avatar-url').value = url;
-              document.getElementById('nav-avatar').src = url;
+              // document.getElementById('nav-avatar').src = url;
             }
             else{
               alert('Could not upload file.');
@@ -207,13 +207,9 @@ function SingleUserController($http, AuthService, $rootScope) {
       initiate()
 
   vm.addAvatarToProfile = function(){
-    // function(req, res){
-    //   console.log('AvatarURL: ');
-    //   console.log(vm.avatarUrl);
-    //   req.stringify({"avatar": vm.avatarUrl})
-    // }
+    console.log(vm.avatarUrl);
     $http.patch('/api/' + vm.currentUser._id, {avatar: vm.avatarUrl})
-      .then()
+      .then(console.log("Avatar added to profile"))
   }
 
 }

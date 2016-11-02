@@ -41,16 +41,19 @@
         <button type="submit" class="btn btn-danger">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-if="{{main.currentUser}}"><a ng-click='main.logout()' style="display: inline-block">Logout</a>
-          <a ui-sref="profile"><img id="nav-avatar" src="{{ main.currentUser.avatar }}" style="height: 60px; width: 60px;display: inline-block" /> {{ main.currentUser.name }}</a>
+        <li><a ng-click='main.logout()' style="display: inline-block">Logout</a>
+          <a ui-sref="profile">Profile</a>
         </li>
+        <!-- <li ng-if="{{main.currentUser}}"><a ng-click='main.logout()' style="display: inline-block">Logout</a>
+          <a ui-sref="profile"><img id="nav-avatar" src="{{ main.currentUser.avatar }}" style="height: 60px; width: 60px;display: inline-block" /> {{ main.currentUser.name }}</a>
+        </li> -->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
   <div class="container">
-    
+
     <div ui-view></div>
   </div>
 
