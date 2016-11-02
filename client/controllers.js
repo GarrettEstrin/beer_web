@@ -27,6 +27,10 @@ function mainController($rootScope, $state, AuthService) {
       })
   })
 
+  $rootScope.isLoggedIn = function(){
+    console.log("isLoggedIn triggered");
+  }
+
   vm.logout = function () {
 
     // call logout from service
