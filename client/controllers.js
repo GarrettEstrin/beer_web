@@ -5,6 +5,7 @@ angular.module('myApp')
   .controller('registerController', registerController)
   .controller('SingleUserController', SingleUserController)
   .controller('LogBeerController', LogBeerController)
+  .controller('IndividualBeerController', IndividualBeerController)
 
 
   mainController.$inject = ['$rootScope', '$state', 'AuthService']
@@ -12,7 +13,8 @@ angular.module('myApp')
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
-    LogBeerController.$inject = ['$http', 'AuthService', '$rootScope']
+  LogBeerController.$inject = ['$http', 'AuthService', '$rootScope']
+  IndividualBeerController.$inject = ['$http', 'AuthService', '$rootScope']
 
 
 function mainController($rootScope, $state, AuthService) {
@@ -90,7 +92,7 @@ function registerController($state, AuthService) {
     vm.disabled = true
 
     // call register from service
-    AuthService.register(vm.registerForm.username, vm.registerForm.password)
+    AuthService.register(vm.registerForm.name, vm.registerForm.username, vm.registerForm.password)
       // handle success
       .then(function () {
         $state.go('profile')
@@ -109,7 +111,6 @@ function registerController($state, AuthService) {
 
 function SingleUserController($http, AuthService, $rootScope) {
   var vm = this
-  vm.avatarUrl = ''
   AuthService.getUserStatus()
     .then(function(data){
       vm.currentUser = data.data.user
@@ -183,16 +184,7 @@ function SingleUserController($http, AuthService, $rootScope) {
         var files = document.getElementById('file-input').files;
         // var file = files[0];
         file = files[0];
-        console.log(files)
-        console.log("File:");
-        console.log(file);
-        console.log("File name:");
-        console.log(file.name);
-        console.log("Random name:");
-        console.log(makeid() + "." + file.name.split('.').pop());
         file.randomName = vm.currentUser._id + "." + file.name.split('.').pop()
-        console.log("New name:");
-        console.log(file.name);
         if(file == null){
           return alert('No file selected.');
         }
@@ -211,9 +203,39 @@ function SingleUserController($http, AuthService, $rootScope) {
   vm.addAvatarToProfile = function(){
     console.log(vm.avatarUrl);
     $http.patch('/api/' + vm.currentUser._id, {avatar: vm.avatarUrl})
-      .then(
-        vm.avatarUrl = ""
-        )
+      .then(console.log(vm.avatarUrl))
+  }
+  // Show change avatar div
+  vm.showAvatarDiv = function(){
+    console.log('showAvatarDiv hit');
+    var div = document.getElementById('new-avatar-div')
+    div.style.display = "inline-block"
+    var btn = document.getElementById('edit-avatar-btn')
+    console.log(btn.innerText);
+    btn.innerText = "Done"
+    btn.className = " btn btn-danger"
+    btn.removeEventListener('click', vm.showAvatarDiv)
+    btn.addEventListener('click', vm.hideAvatarDiv)
+
+  }
+
+  vm.hideAvatarDiv = function(){
+    console.log('hideAvatarDiv hit');
+    var div = document.getElementById('new-avatar-div')
+    div.style.display = 'none'
+    var btn = document.getElementById('edit-avatar-btn')
+    console.log(btn.innerText);
+    btn.innerText = "Change Avatar"
+    btn.className = " btn btn-primary"
+    btn.removeEventListener('click', vm.hideAvatarDiv)
+    btn.addEventListener('click', vm.showAvatarDiv)
+  }
+  vm.show = function(){
+    console.log("show function hit");
+    $http.get('/api/' + vm.currentUser._id, function(req, res){
+      console.log(res);
+      return vm.user = res.data.user
+    })
   }
 
 }
@@ -259,4 +281,9 @@ function LogBeerController($http, AuthService, $rootScope){
       //   })
       // })
   }
+
+}
+function IndividualBeerController($http, AuthService, $rootScope){
+  vm = this
+
 }

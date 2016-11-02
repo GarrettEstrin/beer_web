@@ -1,17 +1,38 @@
-<h1>Current User: {{ main.currentUser.username }}</h1>
+
 <div class="col-xl-12 text-center">
-  <input type="file" id="file-input">
-      <p id="status">Please select a file</p>
-      <img style="border:1px solid gray;width:300px;"  id="preview" src="{{ main.currentUser.avatar }}">
 
-      <h2>Your information</h2>
-
-      <form method="POST" action="/save-details">
-        <input type="hidden" id="avatar-url" name="avatar-url" value="{{ main.currentUser.avatar }}">
-
+        <h2>{{ main.currentUser.name }}</h2>
         <hr>
-        <h2>Changes are saved automatically</h2>
+        <div class="col-sm-12 col-xl-6">
+          <img style="border:1px solid gray;width:300px;"  id="preview" src="{{ main.currentUser.avatar }}">
+          <br>
+          <br>
+          <button class="btn btn-primary" id="edit-avatar-btn" ng-click='suc.showAvatarDiv()'>Change Avatar</button>
+          <br>
+          <div style="display: none;" id="new-avatar-div">
+            <input type="file" id="file-input">
+            <p id="status">Please select a file</p>
 
-        <!-- <input type="submit" value="Update profile"> -->
-      </form>
+
+            <form method="POST" action="/save-details">
+              <input type="hidden" id="avatar-url" name="avatar-url" value="{{ main.currentUser.avatar }}">
+          </div>
+
+
+          <hr>
+          <h2>Changes are saved automatically</h2>
+
+          <!-- <input type="submit" value="Update profile"> -->
+        </form>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+          <h1><span>Beers Logged</span></h1>
+          {{ main.currentUser.beers}}
+          <ul ng-repeat="beer in main.currentUser.beers">
+            <li>Name: {{beer.name}}</li>
+          </ul>
+        </div>
+
 </div>
+
+<button type="button" ng-click="suc.show()"></button>

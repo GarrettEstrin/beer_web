@@ -5,7 +5,7 @@ var User = require('../models/User.js')
 var Beer = require('../models/Beer.js')
 
 router.post('/register', function(req, res) {
-  User.register(new User({ username: req.body.username, avatar: "img/default.png" }),
+  User.register(new User({ name: req.body.name, username: req.body.username, avatar: "img/default.png" }),
     req.body.password, function(err, account) {
     if (err) {
       return res.status(500).json({
