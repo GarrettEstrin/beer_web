@@ -105,10 +105,6 @@ app.get('/sign-s3', (req, res) => {
  * This function needs to be completed to handle the information in
  * a way that suits your application.
  */
-app.post('/save-details', (req, res) => {
-  // TODO: Read POSTed form data and do something useful
-  console.log(res);
-});
 
 // error hndlers
 app.use(function(req, res, next) {

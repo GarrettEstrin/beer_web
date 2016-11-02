@@ -1,3 +1,8 @@
 .test-border {
   border: solid black 1px;
 }
+
+#main-heading {
+  font-size: 150px;
+  font-style: bold;
+}
