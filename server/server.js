@@ -19,7 +19,8 @@ const
   path = require('path')
   passport = require('passport')
   passportConfig = require('./config/passport.js'),
-  dotenv = require('dotenv').load({silent: true})
+  dotenv = require('dotenv').load({silent: true}),
+  aws = require('aws-sdk')
 
 // mongoose
 var mongoConnectionString = process.env.MONGO_URL
@@ -64,6 +65,50 @@ app.use('/beers', beerRoutes)
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'))
 })
+
+// AWS S3
+const S3_BUCKET = process.env.S3_BUCKET;
+/*
+ * Respond to GET requests to /sign-s3.
+ * Upon request, return JSON containing the temporarily-signed S3 request and
+ * the anticipated URL of the image.
+ */
+app.get('/sign-s3', (req, res) => {
+  console.log("sign-s3 hit");
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
+});
+
+/*
+ * Respond to POST requests to /submit_form.
+ * This function needs to be completed to handle the information in
+ * a way that suits your application.
+ */
+app.post('/save-details', (req, res) => {
+  // TODO: Read POSTed form data and do something useful
+  console.log(res);
+});
 
 // error hndlers
 app.use(function(req, res, next) {

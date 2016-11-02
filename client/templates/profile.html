@@ -1,1 +1,16 @@
 <h1>Current User: {{ main.currentUser.username }}</h1>
+
+<input type="file" id="file-input">
+    <p id="status">Please select a file</p>
+    <img style="border:1px solid gray;width:300px;"  id="preview" src="{{ main.currentUser.avatar }}">
+
+    <h2>Your information</h2>
+
+    <form method="POST" action="/save-details">
+      <input type="hidden" id="avatar-url" name="avatar-url" value="{{ main.currentUser.avatar }}">
+
+      <hr>
+      <h2>Changes are saved automatically</h2>
+
+      <!-- <input type="submit" value="Update profile"> -->
+    </form>

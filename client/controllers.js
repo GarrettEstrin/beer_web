@@ -107,6 +107,7 @@ function registerController($state, AuthService) {
 
 function SingleUserController($http, AuthService, $rootScope) {
   var vm = this
+  vm.avatarUrl = ''
   AuthService.getUserStatus()
     .then(function(data){
       vm.currentUser = data.data.user
@@ -116,6 +117,103 @@ function SingleUserController($http, AuthService, $rootScope) {
           vm.currentUser = data
         })
     })
+    /*
+        Function to carry out the actual PUT request to S3 using the signed request from the app.
+      */
+      vm.uploadFile = function (file, signedRequest, url){
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT', signedRequest);
+        xhr.onreadystatechange = () => {
+          if(xhr.readyState === 4){
+            if(xhr.status === 200){
+              document.getElementById('preview').src = url;
+              document.getElementById('avatar-url').value = url;
+              document.getElementById('nav-avatar').src = url;
+            }
+            else{
+              alert('Could not upload file.');
+            }
+          }
+        };
+        xhr.send(file);
+      }
 
+      /*
+        Function to get the temporary signed request from the app.
+        If request successful, continue to upload the file using this signed
+        request.
+      */
+      vm.getSignedRequest = function (file){
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `/sign-s3?file-name=${file.randomName}&file-type=${file.type}`);
+        xhr.onreadystatechange = () => {
+          if(xhr.readyState === 4){
+            if(xhr.status === 200){
+              const response = JSON.parse(xhr.responseText);
+              console.log("response:");
+              console.log(response.url);
+              vm.avatarUrl = response.url
+              console.log("AvatarURL");
+              console.log(vm.avatarUrl);
+              vm.uploadFile(file, response.signedRequest, response.url);
+              vm.addAvatarToProfile()
+            }
+            else{
+              alert('Could not get signed URL.');
+            }
+          }
+        };
+        xhr.send();
+      }
+
+      /*
+       Function called when file input updated. If there is a file selected, then
+       start upload procedure by asking for a signed request from the app.
+      */
+      vm.initUpload = function (){
+        function makeid(){
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for( var i=0; i < 10; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            return text;
+        }
+        var files = document.getElementById('file-input').files;
+        // var file = files[0];
+        file = files[0];
+        console.log(files)
+        console.log("File:");
+        console.log(file);
+        console.log("File name:");
+        console.log(file.name);
+        console.log("Random name:");
+        console.log(makeid() + "." + file.name.split('.').pop());
+        file.randomName = vm.currentUser._id + "." + file.name.split('.').pop()
+        console.log("New name:");
+        console.log(file.name);
+        if(file == null){
+          return alert('No file selected.');
+        }
+        vm.getSignedRequest(file);
+      }
+
+      /*
+       Bind listeners when the page loads.
+      */
+      initiate = function() {
+          document.getElementById('file-input').onchange = vm.initUpload;
+      }
+
+      initiate()
+
+  vm.addAvatarToProfile = function(){
+    // function(req, res){
+    //   console.log('AvatarURL: ');
+    //   console.log(vm.avatarUrl);
+    //   req.stringify({"avatar": vm.avatarUrl})
+    // }
+    $http.patch('/api/' + vm.currentUser._id, {avatar: vm.avatarUrl})
+      .then()
+  }
 
 }
