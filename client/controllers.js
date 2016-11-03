@@ -8,7 +8,7 @@ angular.module('myApp')
   .controller('IndividualBeerController', IndividualBeerController)
 
 
-  mainController.$inject = ['$rootScope', '$state', 'AuthService']
+  mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http']
   loginController.$inject = ['$state', 'AuthService']
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService']
@@ -17,8 +17,11 @@ angular.module('myApp')
   IndividualBeerController.$inject = ['$http', 'AuthService', '$rootScope']
 
 
-function mainController($rootScope, $state, AuthService) {
+function mainController($rootScope, $state, AuthService, $http) {
   var vm = this
+
+
+
   $rootScope.$on('$stateChangeStart', function (event) {
     // console.log("Changing states")
     AuthService.getUserStatus()
@@ -115,6 +118,19 @@ function registerController($state, AuthService) {
 
 function SingleUserController($http, AuthService, $rootScope) {
   var vm = this
+  console.log('suc');
+  $http.get('/api')
+  .then(function(response){
+    console.log(response.data);
+    vm.allUsers = response.data
+  })
+  
+  vm.showUser = function(userId) {
+    console.log('let us show the user' + userId);
+    // go to state that shows details for user
+    // $state.go('userDetails')
+    // making a http call if necessary
+  }
   AuthService.getUserStatus()
     .then(function(data){
       vm.currentUser = data.data.user

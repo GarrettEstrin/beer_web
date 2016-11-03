@@ -14,6 +14,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
       url: '/login',
       templateUrl: 'templates/login.html',
       controller: 'loginController as loginCtrl'
+
     })
     .state('logout', {
       url: '/logout',
@@ -27,6 +28,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     .state('beerlogger', {
       url: '/logbeer',
       templateUrl: 'templates/beerlogger.html',
+      restricted: true,
       controller: 'LogBeerController as lbc'
     })
     .state('individualBeer', {
