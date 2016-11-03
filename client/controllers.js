@@ -6,20 +6,27 @@ angular.module('myApp')
   .controller('SingleUserController', SingleUserController)
   .controller('LogBeerController', LogBeerController)
   .controller('IndividualBeerController', IndividualBeerController)
+  .controller('UsersController', UsersController)
 
 
-  mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http']
+  mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http', '$routeParams', '$scope', '$route', '$location']
   loginController.$inject = ['$state', 'AuthService']
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
   LogBeerController.$inject = ['$http', 'AuthService', '$rootScope']
   IndividualBeerController.$inject = ['$http', 'AuthService', '$rootScope']
+  UsersController.$inject = ['$http', 'AuthService', '$rootScope', '$state']
 
 
-function mainController($rootScope, $state, AuthService, $http) {
+function mainController($rootScope, $state, AuthService, $http, $routeParams, $scope, $route, $location) {
   var vm = this
-
+  $scope.$route = $route;
+  console.log($route);
+  $scope.$location = $location;
+  console.log($location);
+  $scope.$routeParams = $routeParams;
+  console.log($routeParams);
 
 
   $rootScope.$on('$stateChangeStart', function (event) {
@@ -124,7 +131,7 @@ function SingleUserController($http, AuthService, $rootScope) {
     console.log(response.data);
     vm.allUsers = response.data
   })
-  
+
   vm.showUser = function(userId) {
     console.log('let us show the user' + userId);
     // go to state that shows details for user
@@ -305,5 +312,29 @@ function LogBeerController($http, AuthService, $rootScope){
 }
 function IndividualBeerController($http, AuthService, $rootScope){
   vm = this
+
+}
+
+function UsersController($http, AuthService, $rootScope, $state){
+  var vm = this
+  $http.get('/api')
+  .then(function(response){
+    console.log(response.data);
+    vm.allUsers = response.data
+    console.log(vm.allUsers);
+  })
+
+  vm.showUser = function(userId) {
+    console.log('let us show the user' + userId);
+    $state.go('userDetails')
+    // go to state that shows details for user
+    // $state.go('userDetails')
+    // making a http call if necessary
+  }
+}
+
+function UserDetailController($http, AuthService, $rootScope){
+  console.log("UserDetailController instantiated");
+  $location.path("/fundingRequirements/"+data.data)
 
 }

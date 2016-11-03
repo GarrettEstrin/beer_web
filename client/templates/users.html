@@ -1,0 +1,10 @@
+<div class="col-xl-12 text-center">
+  <h1>All Users</h1>
+  <div ng-repeat="u in uc.allUsers" class="col-xl-12">
+
+      <div class="col-xl-4 test-border">
+        <a ng-click="uc.showUser(u._id)">{{u.name}}</a>
+      </div>
+
+  </div>
+</div>

@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router'])
+var myApp = angular.module('myApp', ['ui.router', 'ngRoute'])
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -33,15 +33,25 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     })
     .state('individualBeer', {
       url: '/beers',
-      template: 'templates/individualbeer.html',
+      templateUrl: 'templates/individualbeer.html',
       restricted: false,
       controller: 'IndividualBeerController as ibc'
+    })
+    .state('users', {
+      url: '/allusers',
+      templateUrl: 'templates/users.html',
+      controller: 'UsersController as uc'
     })
     .state('profile', {
       url: '/profile',
       templateUrl: 'templates/profile.html',
       restricted: true,
       controller: 'SingleUserController as suc'
+    })
+    .state('user', {
+      url: '/userdetail/:id',
+      templateUrl: 'templates/user.html',
+      controller: 'UserDetailController'
     })
 
 })

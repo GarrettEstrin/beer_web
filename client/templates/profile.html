@@ -1,11 +1,7 @@
 
 <div class="col-xl-12 text-center">
-  <ul>
-    <li ng-repeat="u in suc.allUsers">
-      <a ng-click="suc.showUser(u._id)" href="#">{{u}}</a>
-    </li>
-  </ul>
         <h2>{{ main.currentUser.name }}</h2>
+        <button type="button" ui-sref="users">Users</button>
         <hr>
         <div class="col-sm-12 col-xl-6">
           <img style="border:1px solid gray;width:300px;"  id="preview" src="{{ main.currentUser.avatar }}">
