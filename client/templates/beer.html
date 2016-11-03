@@ -7,7 +7,7 @@
       <img style="border:1px solid gray;width:300px;"  class="img-thumbnail large-avatar" src="{{ bdc.beer.picture }}" >
       <br>
       <hr>
-      <button ng-click="bdc.showReviewDiv()" class="btn btn-lg btn-success" id="toggle-review-btn">Add Review</button>
+      <button ng-show="bdc.beer.user._id == main.currentUser._id" ng-click="bdc.showReviewDiv()" class="btn btn-lg btn-success" id="toggle-review-btn">Add Review</button>
       <div style="display: none;" id="review-div">
         <form class="form" ng-submit="bdc.logReview(bdc.review)">
           <div class="form-group">
