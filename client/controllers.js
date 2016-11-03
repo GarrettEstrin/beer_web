@@ -16,7 +16,7 @@ angular.module('myApp')
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
-  LogBeerController.$inject = ['$http', 'AuthService', '$rootScope']
+  LogBeerController.$inject = ['$http', 'AuthService', '$rootScope', 'UserFactory', '$state']
   UsersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory']
   BeersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'BeerFactory']
   UserDetailController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory', '$stateParams']
@@ -271,7 +271,7 @@ function SingleUserController($http, AuthService, $rootScope) {
 
 }
 
-function LogBeerController($http, AuthService, $rootScope){
+function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
   console.log("LogBeerController instantiated");
   AuthService.getUserStatus()
     .then(function(data){
@@ -300,7 +300,10 @@ function LogBeerController($http, AuthService, $rootScope){
               body: beer.review.body
       }
     })
-      .then()
+      .then(function(data) {
+        console.log(data)
+        $state.go('beer', {id: data.data.beer._id})
+      })
       // .then(function(){
       //   $http.patch('/api/' + vm.currentUser._id, function(req, res){
       //     User.findById(vm.currentUser._id, function(err, user){

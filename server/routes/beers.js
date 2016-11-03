@@ -11,6 +11,7 @@ beerRouter.route('/')
   })
 
   .post(function(req, res){
+    console.log("INCOMING BEER! GET LIT!");
     console.log(req.body);
     Beer.create({
       name: req.body.name,
@@ -25,8 +26,16 @@ beerRouter.route('/')
       user: req.body.user
 
     }, function(err, beer){
-      if (err) return console.log(err);
-      res.json(beer)
+      if (err) return console.log(err)
+      // return beer
+      User.findById(req.user._id, function(err, user){
+        user.beers.push(beer)
+        user.save(function(err, data){
+          console.log(beer);
+          // res.json(data)
+          res.json({success: true, message: "beer created 🍺", beer: beer})
+        })
+      })
     })
   })
 

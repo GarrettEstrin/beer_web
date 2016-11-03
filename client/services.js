@@ -127,7 +127,8 @@ return {
   index: index,
   show: show,
   destroy: destroy,
-  create: create
+  create: create,
+  edit: edit
 }
 
 function index(){
@@ -144,6 +145,10 @@ function destroy(id){
 
 function create(user){
   return $http.post('/api', user)
+}
+
+function edit(user, beer){
+  return $http.patch('/api' + user._id)
 }
 }
 
