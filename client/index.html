@@ -15,35 +15,8 @@
   </style>
 </head>
 <body ng-controller="mainController as main">
-  <!-- start of navigation -->
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">The Beer Journal</a>
-    </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a ui-sref="beerlogger">Start Drinking!</a></li>
-        <li></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-          <li ng-show="main.currentUser"><a ui-sref="profile"><img src="{{main.currentUser.avatar}}" style="height: 25px; width: 30px; margin-left: 5px;"></a></li>
-          <li><a ng-show="main.currentUser" ui-sref="profile">{{main.currentUser.name}}</a></li>
-          <li class="nav-hover"><a ng-show="main.currentUser" ng-click='main.logout()' style="display: inline-block">Logout</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
+<navigation-bar></navigation-bar>
   <div class="container">
     <div ui-view></div>
   </div>
@@ -58,6 +31,8 @@
   <script src="./main.js"></script>
   <script src="./services.js"></script>
   <script src="./controllers.js"></script>
+  <!-- <script src="./js/bs.js" charset="utf-8"></script> -->
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap.native/1.0.5/bootstrap-native.min.js"></script>
 
 </body>
 </html>

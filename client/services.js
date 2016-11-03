@@ -1,4 +1,5 @@
-angular.module('myApp').factory('AuthService',
+angular.module('myApp')
+  .factory('AuthService',
   ['$q', '$timeout', '$http',
   function ($q, $timeout, $http) {
 
@@ -117,3 +118,56 @@ angular.module('myApp').factory('AuthService',
     }
 
 }])
+
+.factory('UserFactory', ['$http', UserFactory])
+.factory('BeerFactory', ['$http', BeerFactory])
+
+function UserFactory($http){
+return {
+  index: index,
+  show: show,
+  destroy: destroy,
+  create: create
+}
+
+function index(){
+  return $http.get('/api/')
+}
+
+function show(id){
+  return $http.get('/api/' + id)
+}
+
+function destroy(id){
+  return $http.delete('/api/' + id)
+}
+
+function create(user){
+  return $http.post('/api', user)
+}
+}
+
+function BeerFactory($http){
+return {
+  index: index,
+  show: show,
+  destroy: destroy,
+  create: create
+}
+
+function index(){
+  return $http.get('/beers')
+}
+
+function show(id){
+  return $http.get('/beers/' + id)
+}
+
+function destroy(id){
+  return $http.delete('/beers' + id)
+}
+
+function create(beer){
+  return $http.post('/beers', beer)
+}
+}

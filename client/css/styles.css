@@ -14,3 +14,22 @@ span {
 .nav-hover {
   cursor: pointer;
 }
+
+/* show the collapse when navbar toggle is checked */
+#navbar-toggle-cbox:checked ~ .collapse {
+    display: block;
+}
+
+/* the checkbox used only internally; don't display it */
+#navbar-toggle-cbox {
+  display:none
+}
+
+#avatar-large {
+  width: 185px;
+  height: 200px;
+}
+
+.user-name {
+  padding-left: 20px;
+}

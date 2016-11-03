@@ -1,0 +1,19 @@
+
+<div class="col-xl-12 text-center">
+  <h1>{{udc.user.name}}</h1>
+        <hr>
+        <div class="col-sm-12 col-xl-6">
+          <img style="border:1px solid gray;width:300px;"  id="preview" src="{{ udc.user.avatar }}">
+          <br>
+          <hr>
+        </div>
+        <div class="col-sm-12 col-xl-6">
+          <h1><span>Beers Logged</span></h1>
+          <ul>
+            <div ng-repeat="b in udc.user.beers">
+              <li>{{b.name}}</li>
+            </div>
+          </ul>
+        </div>
+
+</div>

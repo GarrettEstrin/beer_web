@@ -1,4 +1,5 @@
 var myApp = angular.module('myApp', ['ui.router', 'ngRoute'])
+.directive('navigationBar', navigationBar)
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -31,11 +32,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
       restricted: true,
       controller: 'LogBeerController as lbc'
     })
-    .state('individualBeer', {
-      url: '/beers',
-      templateUrl: 'templates/individualbeer.html',
+    .state('beers', {
+      url: '/allbeers',
+      templateUrl: 'templates/beers.html',
       restricted: false,
-      controller: 'IndividualBeerController as ibc'
+      controller: 'BeersController as bc'
     })
     .state('users', {
       url: '/allusers',
@@ -51,10 +52,23 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     .state('user', {
       url: '/userdetail/:id',
       templateUrl: 'templates/user.html',
-      controller: 'UserDetailController'
+      controller: 'UserDetailController as udc'
+    })
+    .state('beer', {
+      url: '/beerdetail/:id',
+      templateUrl: 'templates/beer.html',
+      controller: 'BeerDetailController as bdc'
     })
 
 })
+
+function navigationBar() {
+  return {
+    restrict: 'E',
+    templateUrl: 'partials/nav.html'
+  }
+}
+
 
 myApp.run(function ($rootScope, $location, $state, AuthService) {
   $rootScope.$on("$stateChangeError", console.log.bind(console));

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div>
+        <h1>The Beers</h1>
+      </div>
+      <div class="list-group">
+        <div class="list-group-item clearfix car" ng-repeat="b in bc.beers">
+          <div class="row">
+            <div class="col-sm-3 text-center">
+              <img ui-sref="beer({id: b._id})" ng-src="{{ b.picture }}" id="avatar-large">
+            </div>
+            <div class="col-sm-9">
+              <!-- <h3 class="user-name">{{ u.name }}</h3> -->
+              <div class="col-sm-10">
+                <h3>{{b.name}}</h3>
+                <hr>
+                <h4>Color: {{b.color}}</h4>
+                <h4>Alcohol Content: {{b.alcoholcontent}}</h4>
+                <h4>IBU: {{b.bitter}}</h4>
+                <h4>Review: {{b.review.title}} | by {{b.user}}</h4>
+                <!-- name: String,
+                color: String,
+                alcoholcontent: Number,
+                bitter: Number,
+                picture: String,
+                Review: {
+                  title: String,
+                  body: String
+                },
+                // make this a reference to user model
+                user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'} -->
+              </div>
+              <!-- <ul ng-repeat="b in beers">
+                <li> {{b}}</li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

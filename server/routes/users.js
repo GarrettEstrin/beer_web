@@ -4,7 +4,7 @@ var
 
 userRouter.route('/')
   .get(function(req, res) {
-    User.find({}, function(err, users) {
+    User.find({}).populate('Beer').exec(function(err, users) {
       if(err) return console.log(err)
       res.json(users)
     })

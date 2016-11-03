@@ -5,8 +5,10 @@ angular.module('myApp')
   .controller('registerController', registerController)
   .controller('SingleUserController', SingleUserController)
   .controller('LogBeerController', LogBeerController)
-  .controller('IndividualBeerController', IndividualBeerController)
   .controller('UsersController', UsersController)
+  .controller('BeersController', BeersController)
+  .controller('UserDetailController', UserDetailController)
+  .controller('BeerDetailController', BeerDetailController)
 
 
   mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http', '$routeParams', '$scope', '$route', '$location']
@@ -15,8 +17,10 @@ angular.module('myApp')
   registerController.$inject = ['$state', 'AuthService']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
   LogBeerController.$inject = ['$http', 'AuthService', '$rootScope']
-  IndividualBeerController.$inject = ['$http', 'AuthService', '$rootScope']
-  UsersController.$inject = ['$http', 'AuthService', '$rootScope', '$state']
+  UsersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory']
+  BeersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'BeerFactory']
+  UserDetailController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory', '$stateParams']
+  BeerDetailController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'BeerFactory', '$stateParams']
 
 
 function mainController($rootScope, $state, AuthService, $http, $routeParams, $scope, $route, $location) {
@@ -310,19 +314,14 @@ function LogBeerController($http, AuthService, $rootScope){
   }
 
 }
-function IndividualBeerController($http, AuthService, $rootScope){
-  vm = this
 
-}
-
-function UsersController($http, AuthService, $rootScope, $state){
+function UsersController($http, AuthService, $rootScope, $state, UserFactory){
   var vm = this
-  $http.get('/api')
-  .then(function(response){
-    console.log(response.data);
-    vm.allUsers = response.data
-    console.log(vm.allUsers);
-  })
+
+  UserFactory.index()
+    .success(function(data){
+      vm.users = data
+    })
 
   vm.showUser = function(userId) {
     console.log('let us show the user' + userId);
@@ -333,8 +332,41 @@ function UsersController($http, AuthService, $rootScope, $state){
   }
 }
 
-function UserDetailController($http, AuthService, $rootScope){
+function UserDetailController($http, AuthService, $rootScope, $state, UserFactory, $stateParams){
   console.log("UserDetailController instantiated");
-  $location.path("/fundingRequirements/"+data.data)
+  var vm = this
+  UserFactory.show($stateParams.id)
+    .success(function(user){
+      vm.user = user
+      console.log(vm.user);
+    })
+
+}
+
+function BeersController($http, AuthService, $rootScope, $state, BeerFactory){
+  var vm = this
+
+  BeerFactory.index()
+    .success(function(data){
+      vm.beers = data
+    })
+
+  vm.showBeer = function(userId) {
+    console.log('let us show the beer' + beerId);
+    $state.go('beerDetails')
+    // go to state that shows details for beer
+    // $state.go('beerDetails')
+    // making a http call if necessary
+  }
+}
+
+function BeerDetailController($http, AuthService, $rootScope, $state, BeerFactory, $stateParams){
+  console.log("BeerDetailController instantiated");
+  var vm = this
+  BeerFactory.show($stateParams.id)
+    .success(function(beer){
+      vm.beer = beer
+      console.log(vm.beer);
+    })
 
 }
