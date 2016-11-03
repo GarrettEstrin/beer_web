@@ -19,7 +19,7 @@ beerRouter.route('/')
       alcoholcontent: req.body.alcoholcontent,
       bitter: req.body.bitter,
       picture: req.body.picture,
-      Review: {
+      review: {
         title: req.body.review.title,
         body: req.body.review.body
       },
@@ -55,9 +55,11 @@ beerRouter.route('/:id')
   })
 
   .patch(function(req, res){
-    Beer.update({_id: req.params.id}, {$set: req.body}, function(err, beer){
+    console.log("Req:");
+    console.log(req.body);
+    Beer.update({_id: req.params.id}, {$set: {review: {title: req.body.title, body: req.body.body}}}, function(err, beer){
       if(err) return console.log(err)
-      res.json(beer)
+      res.json({success: true, message: "beer review created 🍺", beer: beer})
     })
   })
 

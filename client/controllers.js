@@ -304,17 +304,6 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
         console.log(data)
         $state.go('beer', {id: data.data.beer._id})
       })
-      // .then(function(){
-      //   $http.patch('/api/' + vm.currentUser._id, function(req, res){
-      //     User.findById(vm.currentUser._id, function(err, user){
-      //       console.log(user);
-      //       user.beers.push(vm.beer._id)
-      //       user.save(function(err, user) {
-      //         res.json(user)
-      //       })
-      //     })
-      //   })
-      // })
   }
 
 }
@@ -368,10 +357,26 @@ function BeersController($http, AuthService, $rootScope, $state, BeerFactory){
 function BeerDetailController($http, AuthService, $rootScope, $state, BeerFactory, $stateParams){
   console.log("BeerDetailController instantiated");
   var vm = this
+  vm.disabled = false
+  vm.beerId = $stateParams.id
   BeerFactory.show($stateParams.id)
     .success(function(beer){
       vm.beer = beer
       console.log(vm.beer);
     })
-
+  vm.logReview = function(data){
+    console.log("logReview function hit");
+    console.log(data);
+    vm.disabled= true
+    var newBeer = {
+      title: data.title,
+      body: data.body,
+      beerId: vm.beerId
+    }
+    BeerFactory.edit(newBeer)
+    .success(function(beer){
+      vm.beer = beer
+      console.log(vm.beer);
+    })
+  }
 }
