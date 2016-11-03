@@ -8,7 +8,7 @@ var User = new Schema({
   username: {type: String},
   password: String,
   avatar: String,
-  beers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Beer'}]
+  beers: [{type: mongoose.Schema.Types.ObjectId, ref: 'beers'}]
 })
 
 User.plugin(passportLocalMongoose)

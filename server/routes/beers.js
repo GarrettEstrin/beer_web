@@ -4,7 +4,7 @@ var
 
 beerRouter.route('/')
   .get(function(req, res) {
-    Beer.find({}).populate('User').exec(function(err, beers) {
+    Beer.find({}).populate('user').exec(function(err, beers) {
       if(err) return console.log(err)
       res.json(beers)
     })
@@ -32,7 +32,7 @@ beerRouter.route('/')
 
 beerRouter.route('/:id')
   .get(function(req, res) {
-    Beer.findById(req.params.id).exec(function(err, beer) {
+    Beer.findById(req.params.id).populate('user').exec(function(err, beer) {
       if(err) return console.log(err)
       res.json(beer)
     })

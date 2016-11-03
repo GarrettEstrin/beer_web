@@ -300,6 +300,7 @@ function LogBeerController($http, AuthService, $rootScope){
               body: beer.review.body
       }
     })
+      .then()
       // .then(function(){
       //   $http.patch('/api/' + vm.currentUser._id, function(req, res){
       //     User.findById(vm.currentUser._id, function(err, user){
@@ -348,6 +349,7 @@ function BeersController($http, AuthService, $rootScope, $state, BeerFactory){
 
   BeerFactory.index()
     .success(function(data){
+      console.log(data)
       vm.beers = data
     })
 

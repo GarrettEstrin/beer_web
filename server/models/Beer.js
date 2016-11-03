@@ -14,7 +14,7 @@ var Beer = new Schema({
     body: String
   },
   // make this a reference to user model
-  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'users'}
 
 })
 
