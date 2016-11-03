@@ -359,6 +359,19 @@ function BeerDetailController($http, AuthService, $rootScope, $state, BeerFactor
   var vm = this
   vm.disabled = false
   vm.beerId = $stateParams.id
+
+  // Show/hide review div
+  vm.showReviewDiv = function(){
+    console.log('showReviewDiv hit');
+    var div = document.getElementById('review-div')
+    div.style.display = "inline-block"
+    var btn = document.getElementById('toggle-review-btn')
+    btn.style.display = "none"
+
+  }
+
+
+
   BeerFactory.show($stateParams.id)
     .success(function(beer){
       vm.beer = beer

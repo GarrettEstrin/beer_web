@@ -7,19 +7,22 @@
       <img style="border:1px solid gray;width:300px;"  class="img-thumbnail large-avatar" src="{{ bdc.beer.picture }}" >
       <br>
       <hr>
-      <button class="btn btn-lg btn-success" id="">Add Review</button>
-      <form class="form" ng-submit="bdc.logReview(bdc.review)">
-        <div class="form-group">
-          <label><h4>Title</h4></label>
-          <input type="text" class="form-control" name="title" ng-model="bdc.review.title" required>
-        </div>
-        <div class="form-group">
-          <label><h4>Review</h4></label>
-            <input type="text" class="form-control" name="body" ng-model="bdc.review.body" required>
+      <button ng-click="bdc.showReviewDiv()" class="btn btn-lg btn-success" id="toggle-review-btn">Add Review</button>
+      <div style="display: none;" id="review-div">
+        <form class="form" ng-submit="bdc.logReview(bdc.review)">
+          <div class="form-group">
+            <label><h4>Title</h4></label>
+            <input type="text" class="form-control" name="title" ng-model="bdc.review.title" required>
           </div>
-          <div>
-            <button type="submit" class="btn btn-danger btn-lg" ng-disabled="bdc.disabled">Post Review</button>
-          </div>
-      </form>
+          <div class="form-group">
+            <label><h4>Review</h4></label>
+              <input type="text" class="form-control" name="body" ng-model="bdc.review.body" required>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-danger btn-lg" ng-disabled="bdc.disabled">Post Review</button>
+            </div>
+        </form>
+      </div>
+
     </div>
 </div>
