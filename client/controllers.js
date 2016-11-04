@@ -122,7 +122,7 @@ function registerController($state, AuthService, $http) {
       // handle success
       .then(function(data) {
         console.log(data);
-        $state.go('profile')
+        $state.go('beers')
         vm.disabled = false
         vm.registerForm = {}
       })
