@@ -71,3 +71,11 @@ As a user, I can logout out of the website from the navigation bar.
 ## Feature Wish List
 
 * Ionic app.
+
+## Special Thanks to:
+
+* Philippe for pretending to believe me everytime I "had a quick question".
+
+* Jimmy for a mind opening converstation about Angular and data.
+
+* Everyone in the class for always being available to bounce ideas and thoughts off of.
