@@ -68,6 +68,8 @@ As a user, I can logout out of the website from the navigation bar.
 
 * Have users comment on beers.
 
+* Fix hamburger on mobile navbar.
+
 ## Feature Wish List
 
 * Ionic app.
