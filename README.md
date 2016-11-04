@@ -8,7 +8,7 @@ Users can create and login in to the web app and create and see beers that they 
 
 ## To use the app
 
-Visit [The Beer Journal ](https://tbj.garrettestrin.com/ ) to use the app as a user.
+Visit [The Beer Journal ](http://tbj.garrettestrin.com/ ) to use the app as a user.
 
 Visit [The Beer Journal GitHub ](https://github.com/GarrettEstrin/beer_web) to download the app to your local machine.
 
