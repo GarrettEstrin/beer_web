@@ -26,11 +26,8 @@ angular.module('myApp')
 function mainController($rootScope, $state, AuthService, $http, $routeParams, $scope, $route, $location) {
   var vm = this
   $scope.$route = $route;
-  console.log($route);
   $scope.$location = $location;
-  console.log($location);
   $scope.$routeParams = $routeParams;
-  console.log($routeParams);
 
 
   $rootScope.$on('$stateChangeStart', function (event) {
@@ -53,8 +50,6 @@ function mainController($rootScope, $state, AuthService, $http, $routeParams, $s
         $state.go('login')
       })
   }
-
-  console.log($rootScope)
 }
 
 // LOGIN CONTROLLER:
@@ -70,7 +65,6 @@ function loginController($state, AuthService) {
     AuthService.login(vm.loginForm.username, vm.loginForm.password)
       // handle success
       .then(function () {
-        console.log("Successful login...")
         $state.go('profile')
         vm.disabled = false
         vm.loginForm = {}
@@ -129,10 +123,8 @@ function registerController($state, AuthService) {
 
 function SingleUserController($http, AuthService, $rootScope) {
   var vm = this
-  console.log('suc');
   $http.get('/api')
   .then(function(response){
-    console.log(response.data);
     vm.allUsers = response.data
   })
 
@@ -147,7 +139,6 @@ function SingleUserController($http, AuthService, $rootScope) {
       vm.currentUser = data.data.user
       $http.get('/api/' + vm.currentUser._id)
         .success(function(data) {
-          console.log(data)
           vm.currentUser = data
         })
     })
@@ -341,7 +332,6 @@ function BeersController($http, AuthService, $rootScope, $state, BeerFactory){
 
   BeerFactory.index()
     .success(function(data){
-      console.log(data)
       vm.beers = data
     })
 
@@ -355,7 +345,6 @@ function BeersController($http, AuthService, $rootScope, $state, BeerFactory){
 }
 
 function BeerDetailController($http, AuthService, $rootScope, $state, BeerFactory, $stateParams){
-  console.log("BeerDetailController instantiated");
   var vm = this
   vm.disabled = false
   vm.beerId = $stateParams.id
@@ -375,7 +364,6 @@ function BeerDetailController($http, AuthService, $rootScope, $state, BeerFactor
   BeerFactory.show($stateParams.id)
     .success(function(beer){
       vm.beer = beer
-      console.log(vm.beer);
     })
   vm.logReview = function(data){
     console.log("logReview function hit");
@@ -388,8 +376,9 @@ function BeerDetailController($http, AuthService, $rootScope, $state, BeerFactor
     }
     BeerFactory.edit(newBeer)
     .success(function(beer){
-      vm.beer = beer
-      console.log(vm.beer);
+      console.log(beer);
+      // $state.go('beer', {id: beer.beerid})
+      $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true })
     })
   }
 }

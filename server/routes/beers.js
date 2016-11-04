@@ -59,7 +59,7 @@ beerRouter.route('/:id')
     console.log(req.body);
     Beer.update({_id: req.params.id}, {$set: {review: {title: req.body.title, body: req.body.body}}}, function(err, beer){
       if(err) return console.log(err)
-      res.json({success: true, message: "beer review created 🍺", beer: beer})
+      res.json({success: true, message: "beer review created 🍺", beer: beer, beerid: req.body.beerId})
     })
   })
 
