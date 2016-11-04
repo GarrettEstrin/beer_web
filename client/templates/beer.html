@@ -9,10 +9,10 @@
       <div class="col-sm-12">
         <h3>{{bdc.name}}</h3>
         <hr>
-        <h4>Color: {{bdc.color}}</h4>
-        <h4>Alcohol Content: {{bdc.alcoholcontent}}</h4>
-        <h4>IBU: {{bdc.bitter}}</h4>
-        <h4>Review: {{bdc.review.title}} | by {{b.user.name}}</h4>
+        <h4>Color: {{bdc.beer.color}}</h4>
+        <h4>Alcohol Content: {{bdc.beer.alcoholcontent}}</h4>
+        <h4>IBU: {{bdc.beer.bitter}}</h4>
+        <h4>Review: {{bdc.beer.review.title}} | by {{bdc.beer.user.name}}</h4>
       </div>
       <hr>
       <button ng-show="bdc.beer.user._id == main.currentUser._id" ng-click="bdc.showReviewDiv()" class="btn btn-lg btn-success" id="toggle-review-btn">Add Review</button>

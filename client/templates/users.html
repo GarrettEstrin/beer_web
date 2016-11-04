@@ -15,9 +15,18 @@
               <div class="col-sm-10">
                 <hr>
               </div>
-              <ul ng-repeat="b in beers">
-                <li> {{b}}</li>
-              </ul>
+              <div ng-repeat="b in u.beers">
+                <!-- <a ui-sref="beer({id: b._id})"> -->
+                  <div ui-sref="beer({id: b._id})" class="col-sm-10">
+                  <h3>{{b.name}} | <img src="{{ b.picture }}" style="width: 60px;" /></h3>
+                  <hr>
+                  <h4>Color: {{b.color}}</h4>
+                  <h4>Alcohol Content: {{b.alcoholcontent}}</h4>
+                  <h4>IBU: {{b.bitter}}</h4>
+                  <hr>
+                </div>
+                <!-- </a> -->
+              </div>
             </div>
           </div>
         </div>
