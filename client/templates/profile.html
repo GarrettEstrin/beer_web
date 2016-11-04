@@ -1,6 +1,7 @@
-
+</div>
 <div class="col-xl-12 text-center">
-        <h2>{{ main.currentUser.name }}</h2>
+  <h1>{{main.currentUser.name}}</h1>
+  {{main.currentUser.beers}}
         <hr>
         <div class="col-sm-12 col-xl-6">
           <img style="border:1px solid gray;width:300px;"  id="preview" src="{{ main.currentUser.avatar }}">
@@ -26,12 +27,25 @@
         </div>
         <div class="col-sm-12 col-xl-6">
           <h1><span>Beers Logged</span></h1>
-          {{ main.currentUser.beers}}
-          <ul ng-repeat="beer in main.currentUser.beers">
-            <li>Name: {{beer.name}}</li>
-          </ul>
+          <div class="list-group">
+            <div class="list-group-item clearfix car" ng-repeat="b in main.currentUser.beers">
+              <div class="row">
+                <div class="col-sm-3 text-center">
+                  <img ui-sref="beer({id: b._id})" ng-src="{{ b.picture }}" id="avatar-large">
+                </div>
+                <div class="col-sm-9">
+                  <div class="col-sm-10">
+                    <h3>{{b.name}}</h3>
+                    <hr>
+                    <h4>Color: {{b.color}}</h4>
+                    <h4>Alcohol Content: {{b.alcoholcontent}}</h4>
+                    <h4>IBU: {{b.bitter}}</h4>
+                    <h4>Review: {{b.review.title}} | by {{b.user.name}}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
 </div>
-
-<button type="button" ng-click="suc.show()"></button>

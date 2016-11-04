@@ -11,7 +11,7 @@ angular.module('myApp')
   .controller('BeerDetailController', BeerDetailController)
 
 
-  mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http', '$routeParams', '$scope', '$route', '$location']
+  mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http', '$routeParams', '$scope', '$route', '$location', 'UserFactory']
   loginController.$inject = ['$state', 'AuthService', '$http']
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService', '$http']
@@ -23,20 +23,32 @@ angular.module('myApp')
   BeerDetailController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'BeerFactory', '$stateParams']
 
 
-function mainController($rootScope, $state, AuthService, $http, $routeParams, $scope, $route, $location) {
+function mainController($rootScope, $state, AuthService, $http, $routeParams, $scope, $route, $location, UserFactory) {
   var vm = this
   $scope.$route = $route;
   $scope.$location = $location;
   $scope.$routeParams = $routeParams;
+  vm.currentUser = ''
+
+
 
 
   $rootScope.$on('$stateChangeStart', function (event) {
     // console.log("Changing states")
     AuthService.getUserStatus()
       .then(function(data){
+        console.log(data);
         vm.currentUser = data.data.user
       })
   })
+
+  UserFactory.show(vm.currentUser._id)
+    .success(function(user){
+      vm.currentUser = user
+      console.log(vm.currentUser);
+    })
+
+
 
   $rootScope.isLoggedIn = function(){
     console.log("isLoggedIn triggered");
@@ -47,7 +59,7 @@ function mainController($rootScope, $state, AuthService, $http, $routeParams, $s
     // call logout from service
     AuthService.logout()
       .then(function () {
-        $state.go('login')
+        $state.go('home')
       })
   }
 }
@@ -67,7 +79,7 @@ function loginController($state, AuthService, $http) {
       // handle success
       .then(function () {
         // $state.go('user({id: vm.currentUser._id})')
-        $state.go('profile')
+        $state.go('beers')
         vm.disabled = false
         vm.loginForm = {}
       })
