@@ -12,9 +12,9 @@ angular.module('myApp')
 
 
   mainController.$inject = ['$rootScope', '$state', 'AuthService', '$http', '$routeParams', '$scope', '$route', '$location']
-  loginController.$inject = ['$state', 'AuthService']
+  loginController.$inject = ['$state', 'AuthService', '$http']
   logoutController.$inject = ['$state', 'AuthService']
-  registerController.$inject = ['$state', 'AuthService']
+  registerController.$inject = ['$state', 'AuthService', '$http']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
   LogBeerController.$inject = ['$http', 'AuthService', '$rootScope', 'UserFactory', '$state']
   UsersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory']
@@ -53,8 +53,9 @@ function mainController($rootScope, $state, AuthService, $http, $routeParams, $s
 }
 
 // LOGIN CONTROLLER:
-function loginController($state, AuthService) {
+function loginController($state, AuthService, $http) {
   var vm = this
+
   vm.login = function () {
 
     // initial values
@@ -65,6 +66,7 @@ function loginController($state, AuthService) {
     AuthService.login(vm.loginForm.username, vm.loginForm.password)
       // handle success
       .then(function () {
+        // $state.go('user({id: vm.currentUser._id})')
         $state.go('profile')
         vm.disabled = false
         vm.loginForm = {}
@@ -89,13 +91,13 @@ function logoutController($state, AuthService) {
     // call logout from service
     AuthService.logout()
       .then(function () {
-        $state.go('login')
+        $state.go('home')
       })
   }
 }
 
 // REGISTER CONTROLLER:
-function registerController($state, AuthService) {
+function registerController($state, AuthService, $http) {
   var vm = this
   vm.register = function () {
 
@@ -106,7 +108,8 @@ function registerController($state, AuthService) {
     // call register from service
     AuthService.register(vm.registerForm.name, vm.registerForm.username, vm.registerForm.password)
       // handle success
-      .then(function () {
+      .then(function(data) {
+        console.log(data);
         $state.go('profile')
         vm.disabled = false
         vm.registerForm = {}

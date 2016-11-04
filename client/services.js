@@ -55,7 +55,7 @@ angular.module('myApp')
           } else {
             user = false
             deferred.reject()
-          }
+          } 
         })
         // handle error
         .error(function (data) {
