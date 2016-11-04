@@ -74,7 +74,7 @@ As a user, I can logout out of the website from the navigation bar.
 
 ## Special Thanks to:
 
-* Philippe for pretending to believe me everytime I "had a quick question".
+* Philippe for pretending to believe me everytime I said I "had a quick question".
 
 * Jimmy for a mind opening converstation about Angular and data.
 
