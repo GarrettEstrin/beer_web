@@ -20,7 +20,7 @@
       <li><a ui-sref="beers">Beers</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li ng-show="main.currentUser"><a ui-sref="user({id: main.currentUser._id})"><img src="{{main.currentUser.avatar}}" style="height: 25px; width: 30px; margin-left: 5px;"></a></li>
+        <li ng-show="main.currentUser"><a ui-sref="profile"><img src="{{main.currentUser.avatar}}" style="height: 25px; width: 30px; margin-left: 5px;"></a></li>
         <li><a ng-show="main.currentUser" ui-sref="user({id: main.currentUser._id})">{{main.currentUser.name}}</a></li>
         <li class="nav-hover"><a ng-show="main.currentUser" ng-click='main.logout()' style="display: inline-block">Logout</a></li>
     </ul>

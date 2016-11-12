@@ -1,3 +1,4 @@
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This setup is ready for user authorization(registration and login with session)
 // Uses: express, morgan, cookieParser, bodyParser, bcrypt-nodejs, passport, dotenv
