@@ -44,7 +44,7 @@ span {
   border: solid black 5px;
   margin: 0 auto;
   position: absolute;
-  bottom: 0px;
+  bottom: 30px;
   left: 20%;
   background-color: white;
   display: none;
