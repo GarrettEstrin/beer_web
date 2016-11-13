@@ -289,6 +289,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
         })
     })
   vm = this
+  vm.beerPictureUrl = ""
   vm.logBeer = function(beer){
     console.log("logBeer function was activated");
     beer.review = {title: "", body: ""}
@@ -300,7 +301,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
       color: beer.color,
       alcoholcontent: beer.alcoholcontent,
       bitter: beer.bitter,
-      picture: beer.picture,
+      picture: vm.beerPictureUrl,
       user: beer.user,
       review: {title: beer.review.title,
               body: beer.review.body
@@ -311,7 +312,97 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
         $state.go('beer', {id: data.data.beer._id})
       })
   }
+  var btn = document.getElementById('modal-btn')
+  var modal = document.getElementById('picture-modal')
+  var closeBtn = document.getElementById('close-picture-modal-btn')
+  btn.addEventListener('click', function(){
+    modal.style.display = "inline-block"
+  })
 
+  closeBtn.addEventListener('click', function(){
+    modal.style.display = "none"
+  })
+
+  /*
+      Function to carry out the actual PUT request to S3 using the signed request from the app.
+    */
+    vm.uploadFile = function (file, signedRequest, url){
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', signedRequest);
+      xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4){
+          if(xhr.status === 200){
+            document.getElementById('preview').src = url;
+            // document.getElementById('avatar-url').value = url;
+            // document.getElementById('nav-avatar').src = url;
+          }
+          else{
+            alert('Could not upload file.');
+          }
+        }
+      };
+      xhr.send(file);
+      vm.beerPictureUrl = url
+    }
+
+    /*
+      Function to get the temporary signed request from the app.
+      If request successful, continue to upload the file using this signed
+      request.
+    */
+    vm.getSignedRequest = function (file){
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `/sign-s3?file-name=${file.randomName}&file-type=${file.type}`);
+      xhr.onreadystatechange = () => {
+        if(xhr.readyState === 4){
+          if(xhr.status === 200){
+            const response = JSON.parse(xhr.responseText);
+            console.log("response:");
+            console.log(response.url);
+            vm.avatarUrl = response.url
+            console.log("BeerURL");
+            console.log(vm.avatarUrl);
+            vm.uploadFile(file, response.signedRequest, response.url);
+            // vm.addAvatarToProfile()
+          }
+          else{
+            alert('Could not get signed URL.');
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    /*
+     Function called when file input updated. If there is a file selected, then
+     start upload procedure by asking for a signed request from the app.
+    */
+    vm.initUpload = function (){
+      function makeid(){
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+          for( var i=0; i < 10; i++ )
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+          return text;
+      }
+      var files = document.getElementById('file-input').files;
+      // var file = files[0];
+      file = files[0];
+      file.randomName = makeid() + "." + file.name.split('.').pop()
+      if(file == null){
+        return alert('No file selected.');
+      }
+      vm.getSignedRequest(file);
+    }
+
+    /*
+     Bind listeners when the page loads.
+    */
+    initiate = function() {
+        document.getElementById('file-input').onchange = vm.initUpload;
+    }
+
+    initiate()
 }
 
 function UsersController($http, AuthService, $rootScope, $state, UserFactory){

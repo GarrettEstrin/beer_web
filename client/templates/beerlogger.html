@@ -17,12 +17,23 @@
         <label><h4>IBU(Bitterness Rating)</h4></label>
           <input type="number" class="form-control" name="ibu" ng-model="lbc.beer.bitter">
       </div>
-      <div class="form-group">
-        <label><h4>Picture</h4></label>
-          <input type="text" class="form-control" name="ibu" ng-model="lbc.beer.picture">
-      </div>
-      <div>
+      <button type="button" id="modal-btn">Add Picture</button>
+      <br>
+      <br>
         <button type="submit" class="btn btn-danger btn-lg" ng-click="lbc.logBeer(lbc.beer)">Log Beer!</button>
       </div>
   </form>
+</div>
+
+<!-- Picture Modal -->
+
+<div id="picture-modal">
+  <button type= "button" id="close-picture-modal-btn">X</button>
+  <br>
+  <label class="btn btn-success btn-file"id="beer-picture-btn">
+    Please Select a Picture<input type="file" style="display: none;" id="file-input">
+  </label>
+  <br>
+  <br>
+  <img id="preview" src="./img/beer-default.png" style="width: 66%; height: 66%;" />
 </div>

@@ -101,11 +101,6 @@ app.get('/sign-s3', (req, res) => {
   });
 });
 
-/*
- * Respond to POST requests to /submit_form.
- * This function needs to be completed to handle the information in
- * a way that suits your application.
- */
 
 // error hndlers
 app.use(function(req, res, next) {
