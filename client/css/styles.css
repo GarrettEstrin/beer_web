@@ -38,7 +38,7 @@ span {
   margin: 30px;
 }
 
-#picture-modal {
+.custom-modal {
   width: 60%;
   height: 600px;
   border: solid black 5px;
@@ -52,6 +52,10 @@ span {
 }
 
 #close-picture-modal-btn {
+  float: right;
+}
+
+#close-location-modal-btn {
   float: right;
 }
 

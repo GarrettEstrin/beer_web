@@ -37,7 +37,6 @@ function mainController($rootScope, $state, AuthService, $http, $routeParams, $s
     // console.log("Changing states")
     AuthService.getUserStatus()
       .then(function(data){
-        console.log(data);
         vm.currentUser = data.data.user
       })
   })
@@ -312,16 +311,28 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
         $state.go('beer', {id: data.data.beer._id})
       })
   }
-  var btn = document.getElementById('modal-btn')
-  var modal = document.getElementById('picture-modal')
-  var closeBtn = document.getElementById('close-picture-modal-btn')
-  btn.addEventListener('click', function(){
-    modal.style.display = "inline-block"
+  var picBtn = document.getElementById('picture-modal-btn')
+  var picModal = document.getElementById('picture-modal')
+  var picCloseBtn = document.getElementById('close-picture-modal-btn')
+  var locBtn = document.getElementById('location-modal-btn')
+  var locModal = document.getElementById('location-modal')
+  var locCloseBtn = document.getElementById('close-location-modal-btn')
+
+  picBtn.addEventListener('click', function(){
+    picModal.style.display = "inline-block"
   })
 
-  closeBtn.addEventListener('click', function(){
-    modal.style.display = "none"
+  picCloseBtn.addEventListener('click', function(){
+    picModal.style.display = "none"
   })
+  locBtn.addEventListener('click', function(){
+    locModal.style.display = "inline-block"
+  })
+
+  locCloseBtn.addEventListener('click', function(){
+    locModal.style.display = "none"
+  })
+
 
   /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.

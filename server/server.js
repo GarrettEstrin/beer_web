@@ -21,7 +21,8 @@ const
   passport = require('passport')
   passportConfig = require('./config/passport.js'),
   dotenv = require('dotenv').load({silent: true}),
-  aws = require('aws-sdk')
+  aws = require('aws-sdk'),
+  favicon = require('serve-favicon')
 
 // mongoose
 var mongoConnectionString = process.env.MONGO_URL
@@ -45,6 +46,7 @@ var beerRoutes = require('./routes/beers.js')
 
 // define middleware
 app.use(express.static(path.join(__dirname, '../client')))
+app.use(favicon('favicon.ico'));
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

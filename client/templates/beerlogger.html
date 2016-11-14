@@ -17,7 +17,10 @@
         <label><h4>IBU(Bitterness Rating)</h4></label>
           <input type="number" class="form-control" name="ibu" ng-model="lbc.beer.bitter">
       </div>
-      <button class="btn btn-success" type="button" id="modal-btn">Add Picture</button>
+      <button class="btn btn-success" type="button" id="picture-modal-btn">Add Picture</button>
+      <br>
+      <br>
+      <button class="btn btn-success" type="button" id="location-modal-btn">Add Location</button>
       <br>
       <br>
         <button type="submit" class="btn btn-danger btn-lg" ng-click="lbc.logBeer(lbc.beer)">Log Beer!</button>
@@ -27,7 +30,7 @@
 
 <!-- Picture Modal -->
 
-<div id="picture-modal">
+<div id="picture-modal" class="custom-modal">
   <button type= "button" class="btn btn-danger" id="close-picture-modal-btn">X</button>
   <br>
   <label class="btn btn-success btn-file"id="beer-picture-btn">
@@ -36,4 +39,16 @@
   <br>
   <br>
   <img id="preview" src="./img/beer-default.png" style="width: 66%; height: 66%;" />
+</div>
+
+<!-- Location Modal -->
+
+<div id="location-modal" class="custom-modal">
+  <button type= "button" class="btn btn-danger close-btn" id="close-location-modal-btn">X</button>
+  <div id="locations">
+    <p>
+      This is where the locations will populate.
+    </p>
+  </div>
+
 </div>
