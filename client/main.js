@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ui.router', 'ngRoute'])
+var myApp = angular.module('myApp', ['ui.router', 'ngRoute', 'google.places'])
 .directive('navigationBar', navigationBar)
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {

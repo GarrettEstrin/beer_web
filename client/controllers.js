@@ -16,7 +16,7 @@ angular.module('myApp')
   logoutController.$inject = ['$state', 'AuthService']
   registerController.$inject = ['$state', 'AuthService', '$http']
   SingleUserController.$inject = ['$http', 'AuthService', '$rootScope']
-  LogBeerController.$inject = ['$http', 'AuthService', '$rootScope', 'UserFactory', '$state']
+  LogBeerController.$inject = ['$http', 'AuthService', '$rootScope', 'UserFactory', '$state', 'BeerFactory']
   UsersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory']
   BeersController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'BeerFactory']
   UserDetailController.$inject = ['$http', 'AuthService', '$rootScope', '$state', 'UserFactory', '$stateParams']
@@ -276,15 +276,13 @@ function SingleUserController($http, AuthService, $rootScope) {
 
 }
 
-function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
+function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, BeerFactory){
   console.log("LogBeerController instantiated");
   AuthService.getUserStatus()
     .then(function(data){
       vm.currentUser = data.data.user
       $http.get('/api/' + vm.currentUser._id)
-        .success(function(data) {
-          console.log(data)
-          vm.currentUser = data
+        .success(function(data) {          vm.currentUser = data
         })
     })
   vm = this
@@ -314,9 +312,6 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
   var picBtn = document.getElementById('picture-modal-btn')
   var picModal = document.getElementById('picture-modal')
   var picCloseBtn = document.getElementById('close-picture-modal-btn')
-  var locBtn = document.getElementById('location-modal-btn')
-  var locModal = document.getElementById('location-modal')
-  var locCloseBtn = document.getElementById('close-location-modal-btn')
 
   picBtn.addEventListener('click', function(){
     picModal.style.display = "inline-block"
@@ -325,6 +320,11 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
   picCloseBtn.addEventListener('click', function(){
     picModal.style.display = "none"
   })
+
+  var locBtn = document.getElementById('location-modal-btn')
+  var locModal = document.getElementById('location-modal')
+  var locCloseBtn = document.getElementById('close-location-modal-btn')
+
   locBtn.addEventListener('click', function(){
     locModal.style.display = "inline-block"
   })
@@ -333,6 +333,17 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
     locModal.style.display = "none"
   })
 
+  // FIND LOCATION
+  var coords = {}
+  navigator.geolocation.getCurrentPosition(function(data){
+    coords.lat = data.coords.latitude
+    coords.lon = data.coords.longitude
+    // console.log("Coords");
+    // console.log(coordinates);
+    BeerFactory.location(coords)
+  })
+
+  
 
   /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.
