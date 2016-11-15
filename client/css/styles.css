@@ -39,13 +39,13 @@ span {
 }
 
 .custom-modal {
-  width: 60%;
-  height: 600px;
+  width: 80%;
+  height: 95%;
   border: solid black 5px;
   margin: 0 auto;
   position: absolute;
-  bottom: 30px;
-  left: 20%;
+  bottom: 0;
+  left: 10%;
   background-color: white;
   display: none;
   text-align: center;
@@ -61,4 +61,11 @@ span {
 
 #beer-picture-btn {
   margin-top: 20px;
+}
+
+#places-autocomplete {
+  width: 75%;
+  margin: 5% auto;
+  height: 20%;
+  font-size: 50px;
 }

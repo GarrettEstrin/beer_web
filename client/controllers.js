@@ -320,7 +320,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, 
   picCloseBtn.addEventListener('click', function(){
     picModal.style.display = "none"
   })
-
+  var body = document.getElementsByTagName('body')
   var locBtn = document.getElementById('location-modal-btn')
   var locModal = document.getElementById('location-modal')
   var locCloseBtn = document.getElementById('close-location-modal-btn')
@@ -343,7 +343,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, 
     BeerFactory.location(coords)
   })
 
-  
+
 
   /*
       Function to carry out the actual PUT request to S3 using the signed request from the app.
