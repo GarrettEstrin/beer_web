@@ -185,7 +185,7 @@ function SingleUserController($http, AuthService, $rootScope) {
       vm.getSignedRequest = function (file){
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `/sign-s3?file-name=${file.randomName}&file-type=${file.type}`);
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){
             if(xhr.status === 200){
               const response = JSON.parse(xhr.responseText);
@@ -209,7 +209,7 @@ function SingleUserController($http, AuthService, $rootScope) {
        Function called when file input updated. If there is a file selected, then
        start upload procedure by asking for a signed request from the app.
       */
-      vm.initUpload = function (){
+      vm.initUpload = function(){
         function makeid(){
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -340,7 +340,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
     vm.uploadFile = function (file, signedRequest, url){
       const xhr = new XMLHttpRequest();
       xhr.open('PUT', signedRequest);
-      xhr.onreadystatechange = () => {
+      xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
           if(xhr.status === 200){
             document.getElementById('preview').src = url;
@@ -364,7 +364,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state){
     vm.getSignedRequest = function (file){
       const xhr = new XMLHttpRequest();
       xhr.open('GET', `/sign-s3?file-name=${file.randomName}&file-type=${file.type}`);
-      xhr.onreadystatechange = () => {
+      xhr.onreadystatechange = function(){
         if(xhr.readyState === 4){
           if(xhr.status === 200){
             const response = JSON.parse(xhr.responseText);
