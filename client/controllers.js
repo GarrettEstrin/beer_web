@@ -162,7 +162,7 @@ function SingleUserController($http, AuthService, $rootScope) {
       vm.uploadFile = function (file, signedRequest, url){
         const xhr = new XMLHttpRequest();
         xhr.open('PUT', signedRequest);
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = function(){
           if(xhr.readyState === 4){
             if(xhr.status === 200){
               document.getElementById('preview').src = url;
