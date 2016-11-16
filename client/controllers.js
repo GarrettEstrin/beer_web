@@ -72,9 +72,11 @@ function loginController($state, AuthService, $http) {
     // initial values
     vm.error = false
     vm.disabled = true
+    var username = vm.loginForm.username
+    username = username.toLowerCase()
 
     // call login from service
-    AuthService.login(vm.loginForm.username, vm.loginForm.password)
+    AuthService.login(username, vm.loginForm.password)
       // handle success
       .then(function () {
         // $state.go('user({id: vm.currentUser._id})')
@@ -115,9 +117,11 @@ function registerController($state, AuthService, $http) {
     // initial values
     vm.error = false
     vm.disabled = true
+    var username = vm.registerForm.name
+    username = username.toLowerCase()
 
     // call register from service
-    AuthService.register(vm.registerForm.name, vm.registerForm.username, vm.registerForm.password)
+    AuthService.register(vm.registerForm.name, username, vm.registerForm.password)
       // handle success
       .then(function(data) {
         console.log(data);
