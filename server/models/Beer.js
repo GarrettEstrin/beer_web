@@ -9,6 +9,7 @@ var Beer = new Schema({
   alcoholcontent: Number,
   bitter: Number,
   picture: String,
+  location: String,
   review: {
     title: String,
     body: String

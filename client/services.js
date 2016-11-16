@@ -55,7 +55,7 @@ angular.module('myApp')
           } else {
             user = false
             deferred.reject()
-          } 
+          }
         })
         // handle error
         .error(function (data) {
@@ -158,7 +158,8 @@ return {
   show: show,
   destroy: destroy,
   create: create,
-  edit: edit
+  edit: edit,
+  location: location
 }
 
 function index(){
@@ -176,7 +177,14 @@ function destroy(id){
 function create(beer){
   return $http.post('/beers', beer)
 }
+
 function edit(beer){
   return $http.patch('/beers/' + beer.beerId, beer)
 }
+
+function location(coords){
+  // console.log(coords);
+  return $http.get('/beers/location/'+ coords.lat + '/' + coords.lon)
+}
+
 }

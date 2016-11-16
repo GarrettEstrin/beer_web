@@ -1,6 +1,8 @@
 var
   beerRouter = require('express').Router(),
-  Beer = require('../models/Beer.js')
+  Beer = require('../models/Beer.js'),
+  dotenv = require('dotenv'),
+  https = require('https')
 
 beerRouter.route('/')
   .get(function(req, res) {
@@ -19,6 +21,7 @@ beerRouter.route('/')
       alcoholcontent: req.body.alcoholcontent,
       bitter: req.body.bitter,
       picture: req.body.picture,
+      location: req.body.location,
       review: {
         title: req.body.review.title,
         body: req.body.review.body
@@ -37,6 +40,25 @@ beerRouter.route('/')
         })
       })
     })
+  })
+
+beerRouter.route('/location/:lat/:lon')
+  .get(function(req, res) {
+    console.log("/beer/location has been hit!");
+    // console.log(req.params.lat);
+    // console.log(req.params.lon);
+    var lat = req.params.lat
+    var lon = req.params.lon
+    var apiUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location='
+    var opts = '&radius=50&key='
+    var key = process.env.MAPS_KEY
+    var url = apiUrl + lat + ',' + lon + opts + key
+    console.log(url);
+    https.get(url, function(req, res){
+      console.log("Data:");
+      console.log(res);
+    })
+
   })
 
 beerRouter.route('/:id')
@@ -62,6 +84,8 @@ beerRouter.route('/:id')
       res.json({success: true, message: "beer review created 🍺", beer: beer, beerid: req.body.beerId})
     })
   })
+
+
 
 
 

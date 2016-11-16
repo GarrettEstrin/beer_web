@@ -41,11 +41,6 @@
 <!-- Location Modal -->
 
 <div id="location-modal" class="custom-modal">
-  <button type= "button" class="btn btn-danger close-btn" id="close-location-modal-btn">X</button>
-  <div id="locations">
-    <p>
-      This is where the locations will populate.
-    </p>
-  </div>
-
+  <button type= "button" class="btn btn-danger" id="close-location-modal-btn">X</button>
+  <input type="text" g-places-autocomplete ng-model="myScopeVar" id="places-autocomplete" value=""/>
 </div>
