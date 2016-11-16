@@ -62,3 +62,7 @@ span {
 #beer-picture-btn {
   margin-top: 20px;
 }
+
+.capitalize {
+   text-transform: capitalize;
+}
