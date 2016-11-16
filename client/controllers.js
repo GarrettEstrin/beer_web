@@ -291,6 +291,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, 
     console.log("logBeer function was activated");
     beer.review = {title: "", body: ""}
     beer.user = vm.currentUser._id
+    beer.location = document.getElementById('places-autocomplete').value
     console.log("Beer object:");
     console.log(beer);
     $http.post('/beers', {
@@ -300,6 +301,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, 
       bitter: beer.bitter,
       picture: vm.beerPictureUrl,
       user: beer.user,
+      location: beer.location,
       review: {title: beer.review.title,
               body: beer.review.body
       }

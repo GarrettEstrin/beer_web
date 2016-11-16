@@ -21,6 +21,7 @@ beerRouter.route('/')
       alcoholcontent: req.body.alcoholcontent,
       bitter: req.body.bitter,
       picture: req.body.picture,
+      location: req.body.location,
       review: {
         title: req.body.review.title,
         body: req.body.review.body
