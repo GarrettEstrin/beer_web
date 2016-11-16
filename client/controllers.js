@@ -286,7 +286,7 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, 
     .then(function(data){
       vm.currentUser = data.data.user
       $http.get('/api/' + vm.currentUser._id)
-        .success(function(data) {          vm.currentUser = data
+        .success(function(data) {vm.currentUser = data
         })
     })
   vm = this
@@ -337,16 +337,6 @@ function LogBeerController($http, AuthService, $rootScope, UserFactory, $state, 
 
   locCloseBtn.addEventListener('click', function(){
     locModal.style.display = "none"
-  })
-
-  // FIND LOCATION
-  var coords = {}
-  navigator.geolocation.getCurrentPosition(function(data){
-    coords.lat = data.coords.latitude
-    coords.lon = data.coords.longitude
-    // console.log("Coords");
-    // console.log(coordinates);
-    BeerFactory.location(coords)
   })
 
 
