@@ -46,7 +46,7 @@ var userRoutes = require('./routes/users.js')
 var beerRoutes = require('./routes/beers.js')
 
 // define middleware
-app.use(compression())
+app.use(compression({level: 9}))
 app.use(express.static(path.join(__dirname, '../client')))
 app.use(favicon('favicon.ico'));
 app.use(logger('dev'))
