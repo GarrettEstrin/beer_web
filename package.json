@@ -1,5 +1,8 @@
 {
   "name": "BeerJournal",
+  "engines": {
+    "node": "6.3.1"
+  },
   "scripts": {
     "start": "node server/server.js"
   },
